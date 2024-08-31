@@ -1,3 +1,4 @@
+import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -125,13 +126,16 @@ const Menu = () => {
           <span className="hidden lg:block text-gray-400 font-light my-4">
             {i.title}
           </span>
-          {i.items.map(item =>( 
-            <Link key={item.href} href={item.href}
-            className="flex items-center text-gray-500 py-2 gap-4 justify-center lg:justify-start">
-              <Image src={item.icon} alt="logo" width={20} height={20} />
-              <span className="hidden lg:block">{item.label}</span>
-            </Link>
-          ))}
+          {i.items.map(item =>{
+            if(item.visible.includes(role)) {
+              return (
+                <Link key={item.href} href={item.href} className="flex items-center text-gray-500 py-2 md:px-2 gap-4 justify-center lg:justify-start rounded-md hover:bg-lightBlue">
+                <Image src={item.icon} alt="logo" width={20} height={20} />
+                <span className="hidden lg:block">{item.label}</span>
+              </Link>
+              )
+            }
+          })}
         </div>
         )
       )}
